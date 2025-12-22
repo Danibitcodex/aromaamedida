@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aroma a Medida | Lujo Accesible</title>
+  <meta name="description" content="Aroma a Medida — Perfumes equivalentes de lujo. No pagues la marca. Paga la esencia. Envíos a todo México." />
+  <link rel="canonical" href="https://Danibitcodex.github.io/aromaamedida/" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Aroma a Medida | No pagues la marca. Paga la esencia." />
+  <meta property="og:description" content="Creamos equivalencias 99% similares a fragancias de diseñador con esencias premium y envío nacional." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:url" content="https://Danibitcodex.github.io/aromaamedida/" />
+  <meta name="theme-color" content="#050505" />
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Aroma a Medida",
+    "description": "Perfumes equivalentes de lujo. No pagues la marca. Paga la esencia.",
+    "url": "https://Danibitcodex.github.io/aromaamedida/",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tepeji del Río",
+      "addressRegion": "Hidalgo",
+      "addressCountry": "MX"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header" role="banner" aria-label="Portada Aroma a Medida">
+    <div class="hero-inner">
+      <div class="brand">
+        <h1 class="logo serif">Aroma a Medida</h1>
+        <p class="sublogo">No pagues la marca. Paga la esencia.</p>
+      </div>
+
+      <p class="hero-tag">Fragancias gemelas, calidad eterna.</p>
+      <a class="btn-lujo hero-cta" href="#crear">Diseñar mi Perfume</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container" id="crear" aria-labelledby="crear-title">
+      <header class="section-header">
+        <h2 id="crear-title" class="serif">Tu Fragancia, Tu Elección</h2>
+        <p class="lead">Elige cualquier perfume del mundo. Nosotros creamos la equivalencia perfecta.</p>
+      </header>
+
+      <div class="mockup-area" role="region" aria-label="Vista previa del frasco">
+        <div class="frasco" aria-hidden="true">
+          <div class="tapa" aria-hidden="true"></div>
+          <div class="sticker" id="sticker-preview">TU PERFUME</div>
+          <div class="marca">AROMA A MEDIDA</div>
+        </div>
+
+        <div class="gamas" role="tablist" aria-label="Seleccionar gama">
+          <button class="btn-gama" data-gama="estandar" aria-pressed="true">Gama Estándar</button>
+          <button class="btn-gama" data-gama="alta" aria-pressed="false">Gama Alta</button>
+        </div>
+
+        <div class="precios-box" aria-live="polite">
+          <p class="oferta">OFERTA LIMITADA</p>
+          <div class="precios">
+            <span class="precio-tachado" id="precio-antiguo" aria-hidden="true">$499</span>
+            <span class="precio-actual serif" id="precio-nuevo">$300 MXN</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="miFormulario" class="form-pedido" novalidate aria-labelledby="pedido-title">
+        <h3 id="pedido-title" class="serif form-title">Detalles del Pedido</h3>
+
+        <div class="form-row">
+          <div class="input-group">
+            <label for="perfume">Nombre del Perfume a Replicar</label>
+            <input type="text" id="perfume" name="perfume" class="input-style" placeholder="Ej: Tom Ford Tobacco Vanille" required aria-describedby="perfume-desc perfume-err" />
+            <small id="perfume-desc" class="input-help">Escribe el nombre exacto o aproximado.</small>
+            <div id="perfume-err" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="input-group">
+            <label for="cliente">Tu Nombre</label>
+            <input type="text" id="cliente" name="cliente" class="input-style" placeholder="Nombre completo" required aria-describedby="cliente-err" />
+            <div id="cliente-err" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="input-group">
+            <label for="direccion">Dirección de Entrega</label>
+            <input type="text" id="direccion" name="direccion" class="input-style" placeholder="Calle, Número, Colonia, CP" required aria-describedby="direccion-err" />
+            <div id="direccion-err" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="input-group">
+            <label for="pago">Método de Pago</label>
+            <select id="pago" name="pago" class="input-style" aria-describedby="pago-err">
+              <option value="">Selecciona una opción</option>
+              <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+              <option value="Efectivo (Entrega Personal en Tepeji)">Efectivo (Entrega Personal en Tepeji)</option>
+              <option value="Depósito OXXO">Depósito OXXO</option>
+            </select>
+            <div id="pago-err" class="error" aria-live="assertive"></div>
+          </div>
+        </div>
+
+        <input type="hidden" id="tipo-gama" name="tipo-gama" value="Estándar ($300)">
+
+        <div class="form-actions">
+          <button type="submit" class="btn-whatsapp" id="btn-submit">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            <span>Confirmar Pedido</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="features-grid" role="list" aria-label="Características">
+        <article class="feature" role="listitem">
+          <i class="fa-solid fa-droplet feature-icon" aria-hidden="true"></i>
+          <h4>33% Esencia</h4>
+          <p>Máxima duración y estela.</p>
+        </article>
+
+        <article class="feature" role="listitem">
+          <i class="fa-solid fa-check-double feature-icon" aria-hidden="true"></i>
+          <h4>99% Similar</h4>
+          <p>Mismo aroma, mejor precio.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>Aroma a Medida &copy; <span id="year"></span></p>
+    <p>Tepeji del Río, Hgo. | Envíos a todo México</p>
+  </footer>
+
+  <noscript>
+    <div class="noscript-warning">JavaScript está deshabilitado. Algunas funciones (validación, navegación) pueden no funcionar correctamente.</div>
+  </noscript>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
