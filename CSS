@@ -1,0 +1,139 @@
+:root{
+  --bg-color: #050505;
+  --text-color: #f3f3f3;
+  --gold: #D4AF37;
+  --gold-dark: #bfa030;
+  --muted: #888;
+  --card-bg: #0f0f0f;
+  --max-width: 1100px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: 'Montserrat', sans-serif;
+  background:var(--bg-color);
+  color:var(--text-color);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+
+/* Skip link */
+.skip-link{
+  position:absolute;
+  left:-999px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+.skip-link:focus{
+  left:1rem;
+  top:1rem;
+  width:auto;
+  height:auto;
+  background:#fff;
+  color:#000;
+  padding:.5rem;
+  z-index:1000;
+}
+
+/* Header / Hero */
+.site-header{
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:3rem 1rem;
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.85)),
+    url("https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1600&auto=format&fit=crop");
+  background-size:cover;
+  background-position:center;
+  text-align:center;
+}
+.hero-inner{max-width:var(--max-width); margin:0 auto}
+.logo{font-family:'Playfair Display',serif; font-size:2.4rem; letter-spacing:4px; color:var(--gold); border:1px solid var(--gold); display:inline-block; padding:.6rem 1.6rem; text-transform:uppercase}
+.sublogo{margin:.6rem 0 1rem; font-style:italic}
+.hero-tag{color:var(--muted); margin-bottom:1.4rem}
+.hero-cta{display:inline-block; background:transparent; color:var(--gold); border:1px solid var(--gold); padding:.8rem 1.6rem; text-decoration:none; text-transform:uppercase; letter-spacing:1px}
+.hero-cta:hover, .hero-cta:focus{background:var(--gold); color:#000; box-shadow:0 8px 24px rgba(212,175,55,0.18)}
+
+/* Container */
+.container{max-width:var(--max-width); margin:0 auto; padding:3rem 1rem}
+
+/* Section header */
+.section-header{margin-bottom:1.5rem; text-align:center}
+.section-header h2{font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:.4rem}
+.lead{color:var(--muted)}
+
+/* Mockup area */
+.mockup-area{display:grid; grid-template-columns: 220px 1fr; gap:2rem; align-items:center; justify-items:center; margin-bottom:2rem}
+@media(max-width:800px){ .mockup-area{grid-template-columns:1fr; gap:1rem} }
+
+.frasco{
+  width:180px; height:300px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border:1px solid rgba(212,175,55,0.28);
+  border-radius:8px;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  position:relative;
+}
+.frasco .tapa{position:absolute; top:-28px; width:80px; height:36px; background:#0b0b0b; border:1px solid var(--gold); border-radius:4px}
+.sticker{background:#000; color:#fff; width:78%; padding:14px 6px; text-align:center; font-family:'Playfair Display',serif; font-size:.85rem; letter-spacing:1px}
+.marca{margin-top:8px; font-size:.7rem; color:var(--gold); letter-spacing:2px}
+
+/* Gama buttons */
+.gamas{display:flex; gap:.6rem; align-items:center}
+.btn-gama{background:transparent; border:1px solid var(--gold); color:var(--gold); padding:.6rem 1rem; cursor:pointer; text-transform:uppercase; font-size:.8rem}
+.btn-gama[aria-pressed="true"]{background:var(--gold); color:#000}
+
+/* Precios */
+.precios-box{padding:.8rem 1rem; border-top:1px solid #222; border-bottom:1px solid #222; text-align:center}
+.oferta{color:var(--gold); font-size:.8rem; letter-spacing:2px}
+.precios{display:flex; gap:1rem; align-items:center; justify-content:center}
+.precio-tachado{text-decoration:line-through; color:#666}
+.precio-actual{font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--gold)}
+
+/* Form */
+.form-pedido{background:var(--card-bg); padding:1.4rem; border:1px solid #222; border-radius:6px}
+.form-title{color:var(--gold); text-align:center; margin-bottom:1rem}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+@media(max-width:700px){ .form-row{grid-template-columns:1fr} }
+
+.input-group{display:flex; flex-direction:column}
+.input-group label{font-size:.75rem; color:var(--muted); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:1px}
+.input-style{padding:.9rem; background:transparent; border:1px solid #222; color:var(--text-color); border-radius:4px; outline:none}
+.input-style:focus{box-shadow:0 0 0 4px rgba(212,175,55,0.12); border-color:var(--gold)}
+
+/* Error messages */
+.error{color:#ffb3b3; font-size:.85rem; height:1.1rem; margin-top:.4rem}
+
+/* Buttons */
+.btn-whatsapp{width:100%; padding:1rem; border:none; background:var(--gold); color:#000; font-weight:600; text-transform:uppercase; cursor:pointer; border-radius:4px; display:inline-flex; gap:.6rem; align-items:center; justify-content:center}
+.btn-whatsapp:hover{background:var(--gold-dark)}
+
+.form-actions{margin-top:1rem}
+
+/* Features grid */
+.features-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:2rem}
+.feature{border:1px solid #222; padding:1rem; text-align:center; border-radius:6px}
+.feature-icon{color:var(--gold); font-size:1.4rem; margin-bottom:.6rem}
+
+/* Footer */
+.site-footer{text-align:center; padding:2rem 1rem; border-top:1px solid #111; color:var(--muted)}
+#year{color:var(--muted)}
+
+/* Focus visible */
+:focus{outline:none}
+:focus-visible{outline:3px solid rgba(212,175,55,0.35); outline-offset:2px}
+
+/* Small screens */
+@media(max-width:480px){
+  .logo{font-size:1.6rem; padding:.4rem 1rem}
+  .precio-actual{font-size:1.2rem}
+  .frasco{width:150px; height:240px}
+}
