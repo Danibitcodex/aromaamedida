@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="100%" height="100%" fill="#0e0b0b" />
+  <g transform="translate(150,60)">
+    <rect x="40" y="40" width="260" height="420" rx="28" fill="#1a1111" stroke="#2a1f1f" />
+    <text x="170" y="240" fill="#fff" font-family="Montserrat, sans-serif" font-size="16">LE BEAU</text>
+  </g>
+</svg>

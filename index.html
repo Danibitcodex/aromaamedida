@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aroma a Medida — Vista previa (control de imágenes)</title>
+  <meta name="description" content="Aroma a Medida — Personaliza tu perfume en vivo. Vista previa autocontenida con imágenes locales de botellas." />
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+  /* Variables */
+  :root{
+    --bg-color: #050505;
+    --text-color: #f3f3f3;
+    --gold: #D4AF37;
+    --gold-dark: #bfa030;
+    --muted: #888;
+    --card-bg: #0f0f0f;
+    --max-width: 1200px;
+    --touch-min: 48px;
+  }
+
+  /* Base */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: 'Montserrat', sans-serif;
+    background:var(--bg-color);
+    color:var(--text-color);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
+  .container{max-width:var(--max-width); margin:0 auto; padding:2.4rem 1rem}
+
+  /* Hero (kept as approved) */
+  .site-header.hero-enhanced{
+    min-height:56vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:2.2rem 1rem;
+    background-image:
+      linear-gradient(180deg, rgba(0,0,0,0.62), rgba(0,0,0,0.78)),
+      url("assets/perfumes/hero-style.webp");
+    background-size:cover;
+    background-position:center;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.02);
+  }
+  .hero-inner{max-width:var(--max-width); margin:0 auto; display:flex; align-items:center; justify-content:center; flex-direction:column}
+  .hero-brand{font-family:'Playfair Display',serif; font-size:clamp(2.2rem, 5.4vw, 3.2rem); letter-spacing:6px; color:var(--gold); border:2px solid rgba(212,175,55,0.08); display:inline-block; padding:.6rem 1.6rem; text-transform:uppercase}
+  .hero-sub{margin:.6rem 0 1rem; color:var(--muted); font-style:italic}
+  .hero-lead{color:var(--muted); margin-bottom:1.2rem; max-width:760px}
+  .hero-cta{display:inline-block; background:var(--gold); color:#000; border:0; padding:.9rem 1.4rem; text-decoration:none; text-transform:uppercase; letter-spacing:1px; border-radius:10px; font-weight:700}
+  .hero-cta:hover, .hero-cta:focus{background:var(--gold-dark); transform:translateY(-3px)}
+
+  /* Section header */
+  .section-header{margin:2rem 0 1.2rem; text-align:left}
+  .section-header h2{font-family:'Playfair Display',serif; font-size:clamp(1.3rem,2.2vw,1.65rem); margin-bottom:.4rem}
+  .lead{color:var(--muted)}
+
+  /* Mockup area (grid) */
+  .mockup-area{display:grid; grid-template-columns: 360px 1fr; gap:2.4rem; align-items:start; margin-bottom:2rem}
+  @media (max-width:1200px){ .mockup-area{ gap:2rem } }
+  @media (max-width:980px){ .mockup-area{ grid-template-columns:1fr; gap:1.2rem } }
+
+  /* Frasco stage */
+  .frasco-stage{ display:flex; flex-direction:column; gap:1rem; align-items:center; justify-content:center; padding:1rem; }
+  .frasco{
+    width:220px; height:360px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border:1px solid rgba(212,175,55,0.12);
+    border-radius:12px;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    box-shadow: 0 36px 90px rgba(0,0,0,0.7), inset 0 -8px 20px rgba(255,255,255,0.02);
+    position:relative;
+  }
+  .frasco .tapa{position:absolute; top:-30px; width:92px; height:42px; background:#0b0b0b; border:1px solid var(--gold); border-radius:6px; box-shadow:0 8px 20px rgba(0,0,0,0.6)}
+  .sticker{background:#000; color:#fff; width:80%; padding:16px 8px; text-align:center; font-family:'Playfair Display',serif; font-size:clamp(.88rem,1.6vw,1rem); letter-spacing:1px; border-radius:8px; transition:all .12s ease;}
+  .marca{margin-top:12px; font-size:.8rem; color:var(--gold); letter-spacing:2px}
+
+  /* Inline mini references next to mockup (only perfumes) */
+  .refs-inline{ display:flex; gap:.6rem; margin-top:.8rem; align-items:center }
+  .ref-mini{ width:60px; height:80px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 24px rgba(0,0,0,0.45); }
+  .ref-mini img{ width:100%; height:100%; object-fit:cover; display:block }
+
+  /* Controls/form */
+  .controls .form-pedido{background:var(--card-bg); padding:1.2rem; border:1px solid #222; border-radius:8px}
+  .form-title{color:var(--gold); text-align:left; margin-bottom:1rem}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+  @media (max-width:700px){ .form-row{grid-template-columns:1fr} }
+  .input-group{display:flex; flex-direction:column}
+  .input-group label{font-size:.8rem; color:var(--muted); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:1px}
+  .input-style{padding:.9rem; background:transparent; border:1px solid #222; color:var(--text-color); border-radius:6px; outline:none; min-height:var(--touch-min)}
+  .input-style:focus{box-shadow:0 0 0 6px rgba(212,175,55,0.06); border-color:var(--gold)}
+  .error{color:#ffb3b3; font-size:.9rem; height:1.2rem; margin-top:.4rem}
+
+  /* Gama toggle (improved) */
+  .gama-row{display:flex; gap:.8rem; margin-top:1rem; margin-bottom:.6rem; align-items:center}
+  .btn-gama{
+    background:transparent; border:1px solid rgba(212,175,55,0.12); color:var(--gold);
+    padding:.7rem 1rem; cursor:pointer; border-radius:8px; text-transform:uppercase; font-weight:700;
+    min-height:var(--touch-min);
+  }
+  .btn-gama[aria-pressed="true"]{background:var(--gold); color:#000; box-shadow:0 18px 40px rgba(191,160,48,0.12)}
+  .btn-gama:hover{transform:translateY(-3px); transition:all .14s ease}
+
+  .precios-box.small{padding:.6rem 0; text-align:left}
+  .precios{display:flex; gap:1rem; align-items:center}
+  .precio-tachado{text-decoration:line-through; color:#666}
+  .precio-actual{font-family:'Playfair Display',serif; font-size:clamp(1.1rem,2.2vw,1.4rem); color:var(--gold)}
+
+  /* Quick packs */
+  .quick-pack{margin-top:1rem; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.03)}
+  .quick-row{display:flex; gap:.6rem; margin-top:.6rem; flex-wrap:wrap}
+  .pkg-quick, .pkg-collapse{ padding:.6rem .9rem; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--muted); cursor:pointer; min-height:var(--touch-min)}
+  .pkg-quick:hover, .pkg-collapse:hover{transform:translateY(-3px)}
+
+  .packages-collapsible{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem}
+  @media(max-width:680px){ .packages-collapsible{ grid-template-columns:1fr } }
+  .package-card{ background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.03)}
+  .pkg-title{ color:var(--gold); font-weight:800; margin-bottom:.4rem}
+  .pkg-prices{ display:flex; justify-content:space-between; color:var(--muted); margin:4px 0}
+  .pkg-cta{ margin-top:.6rem; display:flex; gap:.5rem}
+  .pkg-select{ padding:.6rem .8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:transparent; cursor:pointer; min-height:var(--touch-min)}
+
+  /* References grid */
+  .references{ margin-top:2rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.03) }
+  .refs-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:1rem; margin-top:1rem }
+  @media (max-width:980px){ .refs-grid{ grid-template-columns: repeat(3,1fr) } }
+  @media (max-width:700px){ .refs-grid{ grid-template-columns: repeat(2,1fr) } }
+  @media (max-width:480px){ .refs-grid{ grid-template-columns:1fr } }
+
+  .ref-card{ background:var(--card-bg); border:1px solid rgba(255,255,255,0.03); border-radius:10px; padding:.6rem; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,0.5) }
+  .ref-card img{ width:100%; height:180px; object-fit:cover; border-radius:8px; display:block }
+  .ref-card figcaption{ margin-top:.5rem; color:var(--muted); font-size:.9rem }
+
+  /* Footer */
+  .site-footer{text-align:center; padding:2rem 1rem; border-top:1px solid #111; color:var(--muted)}
+  #year{color:var(--muted)}
+
+  /* Accessibility */
+  :focus{outline:none}
+  :focus-visible{outline:3px solid rgba(212,175,55,0.35); outline-offset:2px}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- HERO -->
+  <header class="site-header hero-enhanced" role="banner" aria-label="Portada Aroma a Medida">
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <h1 class="hero-brand">Aroma a Medida</h1>
+        <p class="hero-sub">No pagues la marca. Paga la esencia.</p>
+        <p class="hero-lead">Fragancias gemelas, calidad eterna — diseña tu perfume con etiqueta en vivo y empaque premium.</p>
+        <a class="hero-cta" href="#crear" id="hero-cta">Diseñar mi perfume</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container" id="crear" aria-labelledby="crear-title">
+      <header class="section-header">
+        <h2 id="crear-title" class="serif">Tu Fragancia, Tu Elección</h2>
+        <p class="lead">Etiqueta en vivo, selector de gama y compra por unidad como foco. Paquetes opcionales abajo.</p>
+      </header>
+
+      <div class="mockup-area" role="region" aria-label="Vista previa del frasco">
+        <!-- LEFT: frasco (protagonista visual) -->
+        <div class="frasco-stage">
+          <div class="frasco" aria-hidden="true">
+            <div class="tapa" aria-hidden="true"></div>
+            <div class="sticker" id="sticker-preview">TU PERFUME</div>
+            <div class="marca">AROMA A MEDIDA</div>
+          </div>
+
+          <div class="refs-inline" aria-hidden="true" title="Referencias visuales">
+            <div class="ref-mini" title="Dior Sauvage">
+              <img
+                src="assets/perfumes/dior-sauvage.webp"
+                alt="Dior Sauvage (referencia)"
+                loading="lazy"
+                decoding="async"
+                width="360"
+                height="480"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              />
+            </div>
+
+            <div class="ref-mini" title="Bleu de Chanel">
+              <img
+                src="assets/perfumes/bleu-de-chanel.webp"
+                alt="Bleu de Chanel (referencia)"
+                loading="lazy"
+                decoding="async"
+                width="360"
+                height="480"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              />
+            </div>
+
+            <div class="ref-mini" title="Jean Paul Gaultier">
+              <img
+                src="assets/perfumes/jp-gaultier-le-male.webp"
+                alt="Jean Paul Gaultier Le Male (referencia)"
+                loading="lazy"
+                decoding="async"
+                width="360"
+                height="480"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: controls & form -->
+        <div class="controls">
+          <form id="miFormulario" class="form-pedido" novalidate aria-labelledby="pedido-title">
+            <h3 id="pedido-title" class="serif form-title">Detalles del Pedido</h3>
+
+            <div class="form-row">
+              <div class="input-group">
+                <label for="perfume">Nombre del Perfume a Replicar</label>
+                <input type="text" id="perfume" name="perfume" class="input-style" placeholder="Ej: Tom Ford Tobacco Vanille" required aria-describedby="perfume-desc perfume-err" />
+                <small id="perfume-desc" class="input-help">Escribe el nombre que quieras en la etiqueta — se reflejará en la botella en tiempo real.</small>
+                <div id="perfume-err" class="error" aria-live="assertive"></div>
+              </div>
+
+              <div class="input-group">
+                <label for="cliente">Tu Nombre</label>
+                <input type="text" id="cliente" name="cliente" class="input-style" placeholder="Nombre completo" required aria-describedby="cliente-err" />
+                <div id="cliente-err" class="error" aria-live="assertive"></div>
+              </div>
+
+              <div class="input-group">
+                <label for="direccion">Dirección de Entrega</label>
+                <input type="text" id="direccion" name="direccion" class="input-style" placeholder="Calle, Número, Colonia, CP" required aria-describedby="direccion-err" />
+                <div id="direccion-err" class="error" aria-live="assertive"></div>
+              </div>
+
+              <div class="input-group">
+                <label for="pago">Método de Pago</label>
+                <select id="pago" name="pago" class="input-style" aria-describedby="pago-err">
+                  <option value="">Selecciona una opción</option>
+                  <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                  <option value="Efectivo (Entrega Personal en Tepeji)">Efectivo (Entrega Personal en Tepeji)</option>
+                  <option value="Depósito OXXO">Depósito OXXO</option>
+                </select>
+                <div id="pago-err" class="error" aria-live="assertive"></div>
+              </div>
+            </div>
+
+            <!-- Gama toggle -->
+            <div class="gama-row" role="tablist" aria-label="Seleccionar gama">
+              <button type="button" class="btn-gama" data-gama="estandar" aria-pressed="true">Gama Estándar</button>
+              <button type="button" class="btn-gama" data-gama="alta" aria-pressed="false">Gama Alta</button>
+            </div>
+
+            <div class="precios-box small" aria-live="polite">
+              <div class="precios">
+                <span class="precio-tachado" id="precio-antiguo" aria-hidden="true">$499</span>
+                <span class="precio-actual serif" id="precio-nuevo">$300 MXN</span>
+              </div>
+            </div>
+
+            <!-- Cantidad (foco venta por unidad) -->
+            <div class="form-row qty-row" style="align-items:center">
+              <div class="input-group" style="flex:0 0 48%">
+                <label for="cantidad-select">Cantidad</label>
+                <select id="cantidad-select" class="input-style" name="cantidad">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+
+              <input type="hidden" id="tipo-gama" name="tipo-gama" value="Estándar ($300)">
+
+              <div class="input-group" style="flex:0 0 48%">
+                <label>Confirmar</label>
+                <div class="form-actions">
+                  <button type="submit" class="btn-whatsapp" id="btn-submit" style="min-height:var(--touch-min);">
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    <span>Confirmar Pedido</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="paquete" name="paquete" value="">
+          </form>
+
+          <!-- quick packs -->
+          <div class="quick-pack">
+            <div class="kicker">¿Quieres más piezas?</div>
+            <div class="quick-row">
+              <button class="pkg-quick" data-pack="2">Quiero 2 piezas</button>
+              <button class="pkg-quick" data-pack="3">Quiero 3 piezas</button>
+              <button class="pkg-collapse" aria-expanded="false">Ver paquetes 5 / 10</button>
+            </div>
+
+            <div class="packages-collapsible" hidden>
+              <div class="package-card">
+                <div class="pkg-title">Paquete 5</div>
+                <div class="pkg-prices"><span>Gama Estándar</span><strong>$1,300 MXN</strong></div>
+                <div class="pkg-prices"><span>Gama Alta</span><strong>$1,800 MXN</strong></div>
+                <div class="pkg-cta">
+                  <button class="pkg-select" data-pack="5" data-gama="estandar">Elegir 5 - Estándar</button>
+                  <button class="pkg-select" data-pack="5" data-gama="alta">Elegir 5 - Alta</button>
+                </div>
+              </div>
+
+              <div class="package-card">
+                <div class="pkg-title">Paquete 10</div>
+                <div class="pkg-prices"><span>Gama Estándar</span><strong>$2,500 MXN</strong></div>
+                <div class="pkg-prices"><span>Gama Alta</span><strong>$3,500 MXN</strong></div>
+                <div class="pkg-cta">
+                  <button class="pkg-select" data-pack="10" data-gama="estandar">Elegir 10 - Estándar</button>
+                  <button class="pkg-select" data-pack="10" data-gama="alta">Elegir 10 - Alta</button>
+                </div>
+              </div>
+
+              <div class="pkg-note">Los paquetes pueden ser perfumes variados o del mismo aroma, sin ninguna restricción.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- References corrected (local assets only) -->
+      <section class="references" aria-labelledby="refs-title">
+        <h3 id="refs-title" class="serif">Referencias (solo para inspirarte, no identifica automáticamente)</h3>
+        <p class="lead" style="margin-bottom:1rem;color:var(--muted)">Imágenes referenciales de perfumes virales y reconocibles — sirven para inspirarte visualmente.</p>
+
+        <div class="refs-grid" role="list">
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/dior-sauvage.webp"
+              alt="Dior Sauvage (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Dior Sauvage (referencia)</figcaption>
+          </figure>
+
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/bleu-de-chanel.webp"
+              alt="Bleu de Chanel (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Bleu de Chanel (referencia)</figcaption>
+          </figure>
+
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/jp-gaultier-le-male.webp"
+              alt="Jean Paul Gaultier Le Male (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Jean Paul Gaultier (referencia)</figcaption>
+          </figure>
+
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/tom-ford-tobacco-vanille.webp"
+              alt="Tom Ford Tobacco Vanille (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Tom Ford (referencia)</figcaption>
+          </figure>
+
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/baccarat-rouge-540.webp"
+              alt="Baccarat Rouge 540 (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Baccarat Rouge 540 (referencia)</figcaption>
+          </figure>
+
+          <figure class="ref-card" role="listitem">
+            <img
+              src="assets/perfumes/santal-33.webp"
+              alt="Santal 33 (referencia)"
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+            />
+            <figcaption>Santal 33 (referencia)</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>Aroma a Medida &copy; <span id="year"></span></p>
+    <p>Vendido por Daniel — Tepeji del Río, Hgo. | Envíos a todo México</p>
+  </footer>
+
+  <noscript>
+    <div class="noscript-warning">JavaScript está deshabilitado. Algunas funciones (validación, navegación) pueden no funcionar correctamente.</div>
+  </noscript>
+
+  <script>
+  // ========== main script (maintains original logic) ==========
+  document.addEventListener('DOMContentLoaded', () => {
+    // Elements
+    const btnGamas = Array.from(document.querySelectorAll('.btn-gama'));
+    const precioNuevoEl = document.getElementById('precio-nuevo');
+    const precioAntiguoEl = document.getElementById('precio-antiguo');
+    const inputGama = document.getElementById('tipo-gama');
+    const sticker = document.getElementById('sticker-preview');
+    const perfumeInput = document.getElementById('perfume');
+
+    const form = document.getElementById('miFormulario');
+    const clienteInput = document.getElementById('cliente');
+    const direccionInput = document.getElementById('direccion');
+    const pagoSelect = document.getElementById('pago');
+
+    const cantidadSelect = document.getElementById('cantidad-select');
+    const paqueteHidden = document.getElementById('paquete');
+    const collapseBtn = document.querySelector('.pkg-collapse');
+    const packagesCollapsible = document.querySelector('.packages-collapsible');
+
+    const currentYear = document.getElementById('year');
+    if (currentYear) currentYear.textContent = new Date().getFullYear();
+
+    // Gamas
+    const GAMAS = {
+      estandar: { precio: '$300 MXN', antiguo: '$499', label: 'Estándar ($300)', unit: 300 },
+      alta: { precio: '$400 MXN', antiguo: '$599', label: 'Alta Gama ($400)', unit: 400 }
+    };
+
+    function setGamaVisual(gamaKey) {
+      const data = GAMAS[gamaKey] || GAMAS.estandar;
+      if (precioNuevoEl) precioNuevoEl.textContent = data.precio;
+      if (precioAntiguoEl) precioAntiguoEl.textContent = data.antiguo;
+      if (inputGama) inputGama.value = data.label;
+    }
+
+    btnGamas.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-gama');
+        btnGamas.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+
+        const data = GAMAS[selected] || GAMAS.estandar;
+        if (precioNuevoEl) precioNuevoEl.textContent = data.precio;
+        if (precioAntiguoEl) precioAntiguoEl.textContent = data.antiguo;
+        if (inputGama) inputGama.value = data.label;
+      });
+    });
+
+    setGamaVisual('estandar');
+
+    // Sticker live update
+    perfumeInput.addEventListener('input', () => {
+      const text = perfumeInput.value.trim();
+      sticker.textContent = text ? text.toUpperCase() : 'TU PERFUME';
+
+      const len = (text || '').length;
+      if (len > 24) {
+        sticker.style.fontSize = '0.86rem';
+        sticker.style.padding = '12px 6px';
+      } else if (len > 16) {
+        sticker.style.fontSize = '0.92rem';
+        sticker.style.padding = '14px 6px';
+      } else {
+        sticker.style.fontSize = '1rem';
+        sticker.style.padding = '16px 8px';
+      }
+    });
+
+    // Collapse packages
+    if (collapseBtn && packagesCollapsible) {
+      collapseBtn.addEventListener('click', () => {
+        const expanded = collapseBtn.getAttribute('aria-expanded') === 'true';
+        collapseBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        packagesCollapsible.hidden = expanded ? true : false;
+      });
+    }
+
+    // Quick packs (2/3)
+    document.querySelectorAll('.pkg-quick').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const pack = e.currentTarget.dataset.pack;
+        if (cantidadSelect) cantidadSelect.value = String(pack);
+        if (paqueteHidden) paqueteHidden.value = '';
+        cantidadSelect.focus();
+      });
+    });
+
+    // Package selects (5/10)
+    document.querySelectorAll('.pkg-select').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const pack = e.currentTarget.dataset.pack;
+        const gama = e.currentTarget.dataset.gama || 'estandar';
+        if (paqueteHidden) paqueteHidden.value = pack;
+        if (cantidadSelect) cantidadSelect.value = String(pack);
+        // Update gama toggle visually
+        btnGamas.forEach(b => {
+          const g = b.getAttribute('data-gama');
+          b.setAttribute('aria-pressed', g === gama ? 'true' : 'false');
+        });
+        const chosen = GAMAS[gama] || GAMAS.estandar;
+        if (precioNuevoEl) precioNuevoEl.textContent = chosen.precio;
+        if (precioAntiguoEl) precioAntiguoEl.textContent = chosen.antiguo;
+        if (inputGama) inputGama.value = chosen.label;
+        document.getElementById('btn-submit').focus();
+      });
+    });
+
+    // Validations (unchanged)
+    const validators = {
+      perfume: val => val.trim().length >= 3,
+      cliente: val => /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/.test(val.trim()),
+      direccion: val => val.trim().length >= 6,
+      pago: val => val.trim().length > 0
+    };
+
+    const errorEls = {
+      perfume: document.getElementById('perfume-err'),
+      cliente: document.getElementById('cliente-err'),
+      direccion: document.getElementById('direccion-err'),
+      pago: document.getElementById('pago-err')
+    };
+
+    function showError(field, message) {
+      if (errorEls[field]) errorEls[field].textContent = message;
+      const el = document.getElementById(field);
+      if (el) el.setAttribute('aria-invalid', 'true');
+    }
+    function clearError(field) {
+      if (errorEls[field]) errorEls[field].textContent = '';
+      const el = document.getElementById(field);
+      if (el) el.removeAttribute('aria-invalid');
+    }
+
+    perfumeInput.addEventListener('blur', () => {
+      const ok = validators.perfume(perfumeInput.value);
+      ok ? clearError('perfume') : showError('perfume', 'Ingresa al menos 3 caracteres para el perfume.');
+    });
+    clienteInput.addEventListener('blur', () => {
+      const ok = validators.cliente(clienteInput.value);
+      ok ? clearError('cliente') : showError('cliente', 'Nombre inválido. Usa sólo letras y espacios.');
+    });
+    direccionInput.addEventListener('blur', () => {
+      const ok = validators.direccion(direccionInput.value);
+      ok ? clearError('direccion') : showError('direccion', 'Dirección demasiado corta.');
+    });
+    pagoSelect.addEventListener('change', () => {
+      const ok = validators.pago(pagoSelect.value);
+      ok ? clearError('pago') : showError('pago', 'Selecciona un método de pago.');
+    });
+
+    // Submit -> WhatsApp
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const fields = {
+        perfume: perfumeInput.value,
+        cliente: clienteInput.value,
+        direccion: direccionInput.value,
+        pago: pagoSelect.value
+      };
+
+      let allValid = true;
+      if (!validators.perfume(fields.perfume)) { showError('perfume', 'Ingresa al menos 3 caracteres para el perfume.'); allValid=false; }
+      if (!validators.cliente(fields.cliente)) { showError('cliente', 'Nombre inválido. Usa sólo letras y espacios.'); allValid=false; }
+      if (!validators.direccion(fields.direccion)) { showError('direccion', 'Dirección demasiado corta.'); allValid=false; }
+      if (!validators.pago(fields.pago)) { showError('pago', 'Selecciona un método de pago.'); allValid=false; }
+
+      if (!allValid) {
+        const firstErrorField = Object.keys(errorEls).find(k => errorEls[k].textContent);
+        if (firstErrorField) {
+          const el = document.getElementById(firstErrorField);
+          if (el) el.focus();
+        }
+        return;
+      }
+
+      // Clean data
+      const perfume = fields.perfume.trim();
+      const cliente = fields.cliente.trim();
+      const direccion = fields.direccion.trim();
+      const pago = fields.pago.trim();
+      const gama = inputGama ? inputGama.value : 'Estándar ($300)';
+      const cantidad = cantidadSelect ? cantidadSelect.value : '1';
+      const paquete = paqueteHidden ? paqueteHidden.value : '';
+
+      // Phone and seller (user provided)
+      const telefonoMarca = '5256624947'; // +52 56624947 (sin '+') — ajusta si falta lada
+      const sellerName = 'Daniel';
+
+      let mensajePlain =
+        `Hola ${sellerName}, quiero hacer un pedido en Aroma a Medida:%0A%0A` +
+        `Perfume: ${perfume}%0A` +
+        `Gama: ${gama}%0A` +
+        `Cantidad: ${cantidad}%0A`;
+
+      if (paquete) {
+        mensajePlain += `Paquete: ${paquete} piezas%0A`;
+      }
+
+      mensajePlain +=
+        `Cliente: ${cliente}%0A` +
+        `Entrega: ${direccion}%0A` +
+        `Pago: ${pago}%0A%0A` +
+        `Gracias.`;
+
+      const url = `https://wa.me/${telefonoMarca}?text=${encodeURIComponent(mensajePlain)}`;
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    // init sticker from input (if any)
+    if (perfumeInput.value) sticker.textContent = perfumeInput.value.trim().toUpperCase();
+  });
+
+  // ========== Image fallback & robust attributes ==========
+  (function ensureLocalImagesAndFallback() {
+    const PLACEHOLDER = 'assets/placeholders/bottle-placeholder.webp';
+    const imgSelectors = [
+      '.refs-grid img',
+      '.refs-inline img',
+      '.ref-mini img'
+    ].join(',');
+    const imgs = document.querySelectorAll(imgSelectors);
+    imgs.forEach(img => {
+      try {
+        if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+        if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+        if (!img.hasAttribute('width')) img.setAttribute('width','600');
+        if (!img.hasAttribute('height')) img.setAttribute('height','600');
+      } catch(e){ }
+
+      img.addEventListener('error', function handleErr(){
+        if (this.dataset.fallbackApplied) return;
+        this.dataset.fallbackApplied = '1';
+        this.onerror = null;
+        this.src = PLACEHOLDER;
+        if (!this.alt) this.alt = 'Botella (referencia)';
+      });
+      if (img.complete && img.naturalWidth === 0) {
+        img.dispatchEvent(new Event('error'));
+      }
+    });
+
+    document.querySelectorAll('.refs-grid img, .refs-inline img, .ref-mini img').forEach(img => {
+      const src = img.getAttribute('src') || '';
+      if (!src.startsWith('assets/perfumes/') && !src.startsWith('assets/placeholders/')) {
+        img.src = PLACEHOLDER;
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
