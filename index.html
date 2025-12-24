@@ -23,6 +23,35 @@
       background-color:#0b0710; /* dark fallback */
     }
 
+    /* Enhanced hero with local editorial image and gradient overlays */
+    .site-header.hero-enhanced{
+      position:relative;
+      height:var(--hero-height);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background-image:
+        radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.65) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.54) 100%),
+        url('assets/hero/tom-ford-tobacco-vanille-hero.webp');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-color:#0b0710;
+    }
+
+    /* ::before overlay with slight blur for depth */
+    .site-header.hero-enhanced::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:rgba(18,12,10,0.15);
+      backdrop-filter:blur(0.5px);
+      pointer-events:none;
+      z-index:1;
+    }
+
     /* Media container keeps the image sized and centered */
     .hero__media{
       position:absolute;
@@ -78,9 +107,22 @@
       .hero__media img{ transform-origin:center; transition:transform 10s ease-out; }
       .hero:hover .hero__media img{ transform:scale(1.03); }
     }
-    /* Respect user preference for reduced motion */
+    /* Respect user preference for reduced motion - disable heavy filters and transitions */
     @media (prefers-reduced-motion: reduce){
       .hero__media img{ transition:none !important; }
+      .site-header.hero-enhanced::before{ backdrop-filter:none !important; }
+      .hero:hover .hero__media img{ transform:none !important; }
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width:600px){
+      .site-header.hero-enhanced{
+        background-position:center 25%;
+      }
+      .hero-brand,
+      .hero__title{
+        font-size:clamp(1.4rem, 5vw, 1.8rem);
+      }
     }
 
     /* Fallback when SVG/bitmap can't load; uses a tiny inline placeholder SVG as background */
@@ -102,7 +144,7 @@
 </head>
 <body>
 
-  <header class="hero" role="img" aria-label="Editorial hero: Tobacco & Vanille">
+  <header class="hero site-header hero-enhanced" role="img" aria-label="Editorial hero: Tobacco & Vanille">
     <!-- Picture element prefers WebP and falls back to the editorial SVG for crisp vector rendering -->
     <div class="hero__media" aria-hidden="true">
       <picture>
