@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tobacco & Vanille Editorial Hero</title>
+  <desc id="desc">Illustration with warm tobacco tones, vanilla highlights and soft grain texture.</desc>
+  <defs>
+    <linearGradient id="warm" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2b1a12"/>
+      <stop offset="50%" stop-color="#5b3a2a"/>
+      <stop offset="100%" stop-color="#d6b89a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#ffeddc" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="overlay"/>
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#warm)"/>
+
+  <!-- soft glow -->
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#glow)"/>
+
+  <!-- stylized tobacco leaves -->
+  <g transform="translate(140,120) scale(0.9)">
+    <path d="M120 220c40-140 260-220 420-120 140 88 190 260 140 420-42 134-180 220-320 220-148 0-256-88-320-220-34-78-44-176 80-300z" fill="#3b2416" opacity="0.95"/>
+    <path d="M240 200c56-98 210-148 320-88 76 42 112 124 86 204-32 96-128 132-240 112-112-20-180-92-186-228z" fill="#6f402b" opacity="0.88"/>
+  </g>
+
+  <!-- vanilla pod illustration -->
+  <g transform="translate(920,160) scale(0.9)">
+    <rect x="0" y="0" width="380" height="40" rx="20" fill="#3e2a20" transform="rotate(-14 190 20)"/>
+    <rect x="18" y="8" width="344" height="24" rx="12" fill="#c9a985" transform="rotate(-14 190 20)" opacity="0.9"/>
+    <g transform="rotate(-8 190 20)">
+      <circle cx="240" cy="4" r="6" fill="#2c1f18" opacity="0.8"/>
+      <circle cx="198" cy="16" r="6" fill="#2c1f18" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- editorial vignette -->
+  <ellipse cx="800" cy="540" rx="540" ry="260" fill="#000" opacity="0.12"/>
+
+  <!-- subtle grain overlay (render performance friendly) -->
+  <g filter="url(#grain)" opacity="0.06">
+    <rect width="100%" height="100%" fill="#000"/>
+  </g>
+
+</svg>
