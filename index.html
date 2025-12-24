@@ -46,7 +46,7 @@
     padding:2.2rem 1rem;
     background-image:
       linear-gradient(180deg, rgba(0,0,0,0.62), rgba(0,0,0,0.78)),
-      url("assets/perfumes/hero-style.webp");
+      url("assets/perfumes/hero-style.svg");
     background-size:cover;
     background-position:center;
     text-align:center;
@@ -86,8 +86,9 @@
 
   /* Inline mini references next to mockup (only perfumes) */
   .refs-inline{ display:flex; gap:.6rem; margin-top:.8rem; align-items:center }
-  .ref-mini{ width:60px; height:80px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 24px rgba(0,0,0,0.45); }
+  .ref-mini{ width:60px; height:80px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 24px rgba(0,0,0,0.45); transition:transform .12s ease }
   .ref-mini img{ width:100%; height:100%; object-fit:cover; display:block }
+  .ref-mini:hover{ transform:scale(1.03) }
 
   /* Controls/form */
   .controls .form-pedido{background:var(--card-bg); padding:1.2rem; border:1px solid #222; border-radius:8px}
@@ -131,13 +132,13 @@
 
   /* References grid */
   .references{ margin-top:2rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.03) }
-  .refs-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:1rem; margin-top:1rem }
+  .refs-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:1.2rem; margin-top:1rem }
   @media (max-width:980px){ .refs-grid{ grid-template-columns: repeat(3,1fr) } }
   @media (max-width:700px){ .refs-grid{ grid-template-columns: repeat(2,1fr) } }
   @media (max-width:480px){ .refs-grid{ grid-template-columns:1fr } }
 
-  .ref-card{ background:var(--card-bg); border:1px solid rgba(255,255,255,0.03); border-radius:10px; padding:.6rem; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,0.5) }
-  .ref-card img{ width:100%; height:180px; object-fit:cover; border-radius:8px; display:block }
+  .ref-card{ background:var(--card-bg); border:1px solid rgba(255,255,255,0.03); border-radius:10px; padding:.6rem; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,0.5); overflow:hidden }
+  .ref-card img{ width:100%; height:220px; object-fit:cover; border-radius:8px; display:block }
   .ref-card figcaption{ margin-top:.5rem; color:var(--muted); font-size:.9rem }
 
   /* Footer */
@@ -183,37 +184,37 @@
           <div class="refs-inline" aria-hidden="true" title="Referencias visuales">
             <div class="ref-mini" title="Dior Sauvage">
               <img
-                src="assets/perfumes/dior-sauvage.webp"
+                src="assets/perfumes/dior-sauvage.svg"
                 alt="Dior Sauvage (referencia)"
                 loading="lazy"
                 decoding="async"
                 width="360"
                 height="480"
-                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
               />
             </div>
 
             <div class="ref-mini" title="Bleu de Chanel">
               <img
-                src="assets/perfumes/bleu-de-chanel.webp"
+                src="assets/perfumes/bleu-de-chanel.svg"
                 alt="Bleu de Chanel (referencia)"
                 loading="lazy"
                 decoding="async"
                 width="360"
                 height="480"
-                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
               />
             </div>
 
             <div class="ref-mini" title="Jean Paul Gaultier">
               <img
-                src="assets/perfumes/jp-gaultier-le-male.webp"
+                src="assets/perfumes/jp-gaultier-le-male.svg"
                 alt="Jean Paul Gaultier Le Male (referencia)"
                 loading="lazy"
                 decoding="async"
                 width="360"
                 height="480"
-                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+                onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
               />
             </div>
           </div>
@@ -341,78 +342,78 @@
         <div class="refs-grid" role="list">
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/dior-sauvage.webp"
+              src="assets/perfumes/dior-sauvage.svg"
               alt="Dior Sauvage (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Dior Sauvage (referencia)</figcaption>
           </figure>
 
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/bleu-de-chanel.webp"
+              src="assets/perfumes/bleu-de-chanel.svg"
               alt="Bleu de Chanel (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Bleu de Chanel (referencia)</figcaption>
           </figure>
 
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/jp-gaultier-le-male.webp"
+              src="assets/perfumes/jp-gaultier-le-male.svg"
               alt="Jean Paul Gaultier Le Male (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Jean Paul Gaultier (referencia)</figcaption>
           </figure>
 
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/tom-ford-tobacco-vanille.webp"
+              src="assets/perfumes/tom-ford-tobacco-vanille.svg"
               alt="Tom Ford Tobacco Vanille (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Tom Ford (referencia)</figcaption>
           </figure>
 
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/baccarat-rouge-540.webp"
+              src="assets/perfumes/baccarat-rouge-540.svg"
               alt="Baccarat Rouge 540 (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Baccarat Rouge 540 (referencia)</figcaption>
           </figure>
 
           <figure class="ref-card" role="listitem">
             <img
-              src="assets/perfumes/santal-33.webp"
+              src="assets/perfumes/santal-33.svg"
               alt="Santal 33 (referencia)"
               loading="lazy"
               decoding="async"
               width="600"
               height="600"
-              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.webp';"
+              onerror="this.onerror=null;this.src='assets/placeholders/bottle-placeholder.svg';"
             />
             <figcaption>Santal 33 (referencia)</figcaption>
           </figure>
@@ -544,7 +545,7 @@
     // Validations (unchanged)
     const validators = {
       perfume: val => val.trim().length >= 3,
-      cliente: val => /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/.test(val.trim()),
+      cliente: val => /^[A-Za-zÀ-ÖØ-öø-ÿ\\s]{3,}$/.test(val.trim()),
       direccion: val => val.trim().length >= 6,
       pago: val => val.trim().length > 0
     };
@@ -656,7 +657,7 @@
 
   // ========== Image fallback & robust attributes ==========
   (function ensureLocalImagesAndFallback() {
-    const PLACEHOLDER = 'assets/placeholders/bottle-placeholder.webp';
+    const PLACEHOLDER = 'assets/placeholders/bottle-placeholder.svg';
     const imgSelectors = [
       '.refs-grid img',
       '.refs-inline img',
